@@ -1,0 +1,30 @@
+# Temperature Control
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/temperature" -m "24"
+
+# Power Control (ON/OFF)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/power" -m "1"  # ON (1=on)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/power" -m "0"  # OFF (0=off)
+
+# Mode Control
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/mode" -m "0"  # FAN (0=fan)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/mode" -m "1"  # COOL (1=cool)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/mode" -m "2"  # DRY (2=dry)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/mode" -m "3"  # HEAT (3=heat)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/mode" -m "4"  # AUTO (4=auto)
+
+# Fan Speed
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/fan_rate" -m "0"  # AUTO (0=auto)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/fan_rate" -m "3"  # Level 1 (3=lvl_1)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/fan_rate" -m "2"  # Level 2 (2=lvl_2)
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/fan_rate" -m "1"  # Level 3 (1=lvl_3)
+
+*****************************************************************************************************
+
+start Mosquitto
+"C:\Program Files\mosquitto\mosquitto.exe" -v
+
+new PowerShell window
+python "C:\Users\hasse\Desktop\mqtt\thermostat_controller.py"
+
+third PowerShell window
+& "C:\Program Files\mosquitto\mosquitto_pub.exe" -t "thermostat/control/temperature" -m "24"
